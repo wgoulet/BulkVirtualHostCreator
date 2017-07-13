@@ -10,7 +10,7 @@ if len(sys.argv) < 3:
     print "Error; missing arguments. Invoke with ./setup_scantarget [hostname pattern] [domain]"
     sys.exit()
 
-for sindex in range(1,20):
+for sindex in range(2,20):
     # Create virtual ips
     ifaces = io.open("/etc/network/interfaces","a")
     entry = unicode(r"""
