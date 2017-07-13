@@ -5,7 +5,12 @@ import io
 import sys
 import shutil
 
-for sindex in range(9,20):    
+# make sure sufficient args passed
+if len(sys.argv) < 3:
+    print "Error; missing arguments. Invoke with ./setup_scantarget [hostname pattern] [domain]"
+    sys.exit()
+
+for sindex in range(1,20):
     # Create virtual ips
     ifaces = io.open("/etc/network/interfaces","a")
     entry = unicode(r"""
@@ -20,7 +25,9 @@ iface eth1:{0} inet static
     subprocess.call(["/sbin/ifup","eth1:{0}".format(sindex)])
 
     # Create certs in /etc/nginx/tls directory
-    subject = "scandemo1{0}.vfidev.com".format(sindex)
+    hostpattern = sys.argv[1]
+    domainpattern = sys.argv[2]
+    subject = "{0}{1}.{2}".format(hostpattern,sindex,domainpattern)
     subprocess.call(["make","clean"],cwd="/root/EasyOpenSSLCA")
     subprocess.call(["make","client","SUBJECT={0}".format(subject)],cwd="/root/EasyOpenSSLCA")
     clientcert = io.open("/root/EasyOpenSSLCA/client.pem")
