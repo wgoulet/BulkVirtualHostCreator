@@ -6,20 +6,21 @@ import sys
 import shutil
 
 # make sure sufficient args passed
-if len(sys.argv) < 4:
-    print "Error; missing arguments. Invoke with ./setup_scantarget [hostname pattern] [domain] [number of vips]"
+if len(sys.argv) < 5:
+    print "Error; missing arguments. Invoke with ./setup_scantarget [hostname pattern] [domain] [number of vips] [base network interface device]"
     sys.exit()
 
 for sindex in range(1,int(sys.argv[3])):
+    ifacedevice = sys.argv[4]
     # Create virtual ips
     ifaces = io.open("/etc/network/interfaces","a")
     entry = unicode(r"""
-auto eth1:{0}
-iface eth1:{0} inet static
+auto {1}:{0}
+iface {1}:{0} inet static
 	address 10.10.10.{0}
         netmask 255.255.255.0
 
-""".format(sindex))
+""".format(sindex),ifacedevice)
     ifaces.write(entry)
     ifaces.close()
     subprocess.call(["/sbin/ifup","eth1:{0}".format(sindex)])

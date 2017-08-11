@@ -1,6 +1,6 @@
-#!/bin/bash
+!/bin/bash
 
-printf "auto eth1\niface eth1 inet static\n\taddress 10.10.10.1\n\tnetmask 255.255.255.0\n" >> /etc/network/interfaces
+printf "auto $1\niface $1 inet static\n\taddress 10.10.10.1\n\tnetmask 255.255.255.0\n" >> /etc/network/interfaces
 
 service networking restart
 
