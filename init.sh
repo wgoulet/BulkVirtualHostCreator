@@ -5,6 +5,8 @@ printf "auto $1\niface $1 inet static\n\taddress 10.10.10.1\n\tnetmask 255.255.2
 service networking restart
 
 apt-get --yes install nginx
+apt-get --yes install make
+apt-get --yes install python
 
 # Create nginx tls directory
 mkdir /etc/nginx/tls
