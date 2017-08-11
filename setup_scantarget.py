@@ -20,10 +20,10 @@ iface {1}:{0} inet static
 	address 10.10.10.{0}
         netmask 255.255.255.0
 
-""".format(sindex),ifacedevice)
+""".format(sindex,ifacedevice))
     ifaces.write(entry)
     ifaces.close()
-    subprocess.call(["/sbin/ifup","eth1:{0}".format(sindex)])
+    subprocess.call(["/sbin/ifup","{1}:{0}".format(sindex,ifacedevice)])
 
     # Create certs in /etc/nginx/tls directory
     hostpattern = sys.argv[1]
