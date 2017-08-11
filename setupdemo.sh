@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ~/repos/
 git clone https://github.com/wgoulet/EasyOpenSSLCA.git
 cd ~/repos/BulkVirtualHostCreator
 sudo ./init.sh $1
